@@ -9,6 +9,9 @@ PRD.md 기반 개발 작업 체크리스트
 - [x] 환경 변수 설정 완료
 - [x] `users` 테이블 생성 완료
 - [x] Storage 버킷 (`uploads`) 설정 완료
+- [x] Next.js 이미지 설정 완료
+  - [x] `next.config.ts`에 Supabase Storage 도메인 (`*.supabase.co`) 추가
+  - [x] `next/image` 컴포넌트에서 Supabase 이미지 사용 가능
 
 ## 1. 데이터베이스 스키마 설정 (완료 ✅)
 
@@ -189,162 +192,184 @@ PRD.md 기반 개발 작업 체크리스트
   - [x] 높이 50px
   - [x] 5개 아이콘: 🏠 🔍 ➕ ❤️ 👤
 
-### 2-3. 홈 피드 - 게시물 목록
+### 2-3. 홈 피드 - 게시물 목록 (완료 ✅)
 
-- [ ] PostCard 컴포넌트 (`components/post/PostCard.tsx`)
+- [x] PostCard 컴포넌트 (`components/post/PostCard.tsx`)
 
-  - [ ] 헤더 (60px): 프로필 이미지(32px 원형) + 사용자명 + 시간 + ⋯ 메뉴
-  - [ ] 이미지 영역: 1:1 정사각형 비율
-  - [ ] 액션 버튼 (48px): ❤️ 좋아요, 💬 댓글, ✈️ 공유(UI만), 🔖 북마크(UI만)
-  - [ ] 컨텐츠: 좋아요 수(Bold) + 캡션(사용자명 Bold) + "... 더 보기" 처리
-  - [ ] 댓글 미리보기: 최신 2개만 표시
-  - [ ] "댓글 N개 모두 보기" 링크
+  - [x] 헤더 (60px): 프로필 이미지(32px 원형) + 사용자명 + 시간 + ⋯ 메뉴
+  - [x] 이미지 영역: 1:1 정사각형 비율
+  - [x] 액션 버튼 (48px): ❤️ 좋아요, 💬 댓글, ✈️ 공유(UI만), 🔖 북마크(UI만)
+  - [x] 컨텐츠: 좋아요 수(Bold) + 캡션(사용자명 Bold) + "... 더 보기" 처리
+  - [x] 댓글 미리보기: 최신 2개만 표시
+  - [x] "댓글 N개 모두 보기" 링크
 
-- [ ] PostCardSkeleton 컴포넌트 (`components/post/PostCardSkeleton.tsx`)
+- [x] PostCardSkeleton 컴포넌트 (`components/post/PostCardSkeleton.tsx`)
 
-  - [ ] 로딩 UI (회색 박스 애니메이션)
-  - [ ] Shimmer 효과
+  - [x] 로딩 UI (회색 박스 애니메이션)
+  - [x] Shimmer 효과
 
-- [ ] PostFeed 컴포넌트 (`components/post/PostFeed.tsx`)
+- [x] PostFeed 컴포넌트 (`components/post/PostFeed.tsx`)
 
-  - [ ] 게시물 목록 렌더링
-  - [ ] 로딩 상태 처리 (Skeleton UI)
-  - [ ] 에러 상태 처리
+  - [x] 게시물 목록 렌더링
+  - [x] 로딩 상태 처리 (Skeleton UI)
+  - [x] 에러 상태 처리
 
-- [ ] 홈 페이지 (`app/(main)/page.tsx`)
+- [x] 홈 페이지 (`app/(main)/page.tsx`)
 
-  - [ ] PostFeed 컴포넌트 통합
-  - [ ] 레이아웃 적용 (Sidebar + Main Feed)
+  - [x] PostFeed 컴포넌트 통합
+  - [x] 레이아웃 적용 (Sidebar + Main Feed)
 
-- [ ] 게시물 API - GET (`app/api/posts/route.ts`)
-  - [ ] 페이지네이션 지원 (limit, offset)
-  - [ ] 시간 역순 정렬
-  - [ ] 사용자 정보 JOIN
-  - [ ] 좋아요 수, 댓글 수 집계
-  - [ ] 현재 사용자의 좋아요 여부 포함
+- [x] 게시물 API - GET (`app/api/posts/route.ts`)
+  - [x] 페이지네이션 지원 (limit, offset)
+  - [x] 시간 역순 정렬
+  - [x] 사용자 정보 JOIN
+  - [x] 좋아요 수, 댓글 수 집계
+  - [x] 현재 사용자의 좋아요 여부 포함
 
-### 2-4. 홈 피드 - 좋아요 기능
+### 2-4. 홈 피드 - 좋아요 기능 (완료 ✅)
 
-- [ ] 좋아요 API - POST (`app/api/likes/route.ts`)
+- [x] 좋아요 API - POST (`app/api/likes/route.ts`)
 
-  - [ ] 게시물 좋아요 추가
-  - [ ] 중복 좋아요 방지
-  - [ ] Clerk 인증 확인
+  - [x] 게시물 좋아요 추가
+  - [x] 중복 좋아요 방지
+  - [x] Clerk 인증 확인
 
-- [ ] 좋아요 API - DELETE (`app/api/likes/[postId]/route.ts`)
+- [x] 좋아요 API - DELETE (`app/api/likes/[postId]/route.ts`)
 
-  - [ ] 게시물 좋아요 제거
-  - [ ] 본인 좋아요만 삭제 가능
+  - [x] 게시물 좋아요 제거
+  - [x] 본인 좋아요만 삭제 가능
 
-- [ ] 좋아요 버튼 기능 (PostCard 내부)
+- [x] 좋아요 버튼 기능 (PostCard 내부)
 
-  - [ ] 빈 하트 ↔ 빨간 하트 상태 토글
-  - [ ] 클릭 시 API 호출
-  - [ ] 애니메이션: scale(1.3) → scale(1)
-  - [ ] 좋아요 수 실시간 업데이트
+  - [x] 빈 하트 ↔ 빨간 하트 상태 토글
+  - [x] 클릭 시 API 호출
+  - [x] 애니메이션: scale(1.3) → scale(1)
+  - [x] 좋아요 수 실시간 업데이트
+  - [x] Optimistic UI 업데이트 (즉시 UI 반영, 실패 시 롤백)
+  - [x] 로딩 상태 관리
 
-- [ ] 더블탭 좋아요 기능 (모바일)
-  - [ ] 이미지 더블탭 감지
-  - [ ] 큰 하트 등장 애니메이션 (fade in/out)
-  - [ ] 좋아요 상태 업데이트
+- [x] 더블탭 좋아요 기능 (모바일)
+  - [x] 이미지 더블탭 감지
+  - [x] 큰 하트 등장 애니메이션 (fade in/out)
+  - [x] 좋아요 상태 업데이트
 
 ## 3. 2단계: 게시물 작성 & 댓글 기능
 
-### 3-1. 게시물 작성 모달
+### 3-1. 게시물 작성 모달 (완료 ✅)
 
-- [ ] CreatePostModal 컴포넌트 (`components/post/CreatePostModal.tsx`)
-  - [ ] Dialog 기반 모달 (shadcn/ui)
-  - [ ] Sidebar "만들기" 버튼 클릭 시 열림
-  - [ ] 이미지 업로드 영역 (드래그 앤 드롭 또는 파일 선택)
-  - [ ] 이미지 미리보기 UI
-  - [ ] 캡션 입력 필드 (최대 2200자)
-  - [ ] 글자 수 카운터
-  - [ ] "공유" 버튼 (비활성화 → 활성화)
+- [x] CreatePostModal 컴포넌트 (`components/post/CreatePostModal.tsx`)
+  - [x] Dialog 기반 모달 (shadcn/ui)
+  - [x] Sidebar "만들기" 버튼 클릭 시 열림
+  - [x] 이미지 업로드 영역 (드래그 앤 드롭 또는 파일 선택)
+  - [x] 이미지 미리보기 UI
+  - [x] 캡션 입력 필드 (최대 2200자)
+  - [x] 글자 수 카운터
+  - [x] "공유" 버튼 (비활성화 → 활성화)
+  - [x] 실제 API 호출 연동 (POST /api/posts)
 
-### 3-2. 게시물 작성 - 이미지 업로드
+### 3-2. 게시물 작성 - 이미지 업로드 (완료 ✅)
 
-- [ ] 게시물 API - POST (`app/api/posts/route.ts`)
+- [x] 게시물 API - POST (`app/api/posts/route.ts`)
 
-  - [ ] 이미지 파일 검증 (최대 5MB, 이미지 타입만)
-  - [ ] Supabase Storage에 이미지 업로드
-  - [ ] 경로: `uploads/{clerk_user_id}/{filename}`
-  - [ ] posts 테이블에 레코드 생성
-  - [ ] Clerk 인증 확인
+  - [x] 이미지 파일 검증 (최대 5MB, 이미지 타입만)
+  - [x] Supabase Storage에 이미지 업로드
+  - [x] 경로: `uploads/{clerk_user_id}/{filename}`
+  - [x] posts 테이블에 레코드 생성
+  - [x] Clerk 인증 확인
+  - [x] 에러 처리 (게시물 생성 실패 시 업로드된 이미지 자동 삭제)
 
-- [ ] 이미지 업로드 유틸리티 함수 (`lib/utils/upload.ts`)
-  - [ ] 파일 크기 검증
-  - [ ] 파일 타입 검증
-  - [ ] Supabase Storage 업로드 로직
-  - [ ] 에러 처리
+- [x] 이미지 업로드 유틸리티 함수 (`lib/utils/upload.ts`)
+  - [x] 파일 크기 검증
+  - [x] 파일 타입 검증
+  - [x] Supabase Storage 업로드 로직
+  - [x] Public URL 생성 및 반환
+  - [x] 에러 처리
 
-### 3-3. 댓글 기능 - UI & 작성
+### 3-3. 댓글 기능 - UI & 작성 (완료 ✅)
 
-- [ ] CommentList 컴포넌트 (`components/comment/CommentList.tsx`)
+- [x] CommentList 컴포넌트 (`components/comment/CommentList.tsx`)
 
-  - [ ] 댓글 목록 렌더링
-  - [ ] 사용자명 Bold + 내용
-  - [ ] 시간 표시
-  - [ ] 삭제 버튼 (본인 댓글만 표시)
+  - [x] 댓글 목록 렌더링
+  - [x] 사용자명 Bold + 내용
+  - [x] 시간 표시
+  - [x] 삭제 버튼 (본인 댓글만 표시)
 
-- [ ] CommentForm 컴포넌트 (`components/comment/CommentForm.tsx`)
+- [x] CommentForm 컴포넌트 (`components/comment/CommentForm.tsx`)
 
-  - [ ] "댓글 달기..." 입력창
-  - [ ] Enter 키 또는 "게시" 버튼으로 제출
-  - [ ] 로딩 상태 처리
+  - [x] "댓글 달기..." 입력창
+  - [x] Enter 키 또는 "게시" 버튼으로 제출
+  - [x] 로딩 상태 처리
 
-- [ ] PostCard에 댓글 기능 통합
+- [x] PostCard에 댓글 기능 통합
 
-  - [ ] CommentForm 추가
-  - [ ] 댓글 미리보기 (최신 2개) 표시
-  - [ ] "댓글 N개 모두 보기" 클릭 시 상세 모달/페이지 이동
+  - [x] CommentForm 추가
+  - [x] 댓글 미리보기 (최신 2개) 표시
+  - [ ] "댓글 N개 모두 보기" 클릭 시 상세 모달/페이지 이동 (4-4에서 구현 예정)
 
-- [ ] 댓글 API - POST (`app/api/comments/route.ts`)
-  - [ ] 댓글 작성
-  - [ ] 내용 검증 (최대 1000자)
-  - [ ] Clerk 인증 확인
+- [x] 댓글 API - POST (`app/api/comments/route.ts`)
+  - [x] 댓글 작성
+  - [x] 내용 검증 (최대 1000자)
+  - [x] Clerk 인증 확인
 
-### 3-4. 댓글 기능 - 삭제 & 무한스크롤
+### 3-4. 댓글 기능 - 삭제 & 무한스크롤 (완료 ✅)
 
-- [ ] 댓글 API - DELETE (`app/api/comments/[commentId]/route.ts`)
+- [x] 댓글 API - DELETE (`app/api/comments/[commentId]/route.ts`)
 
-  - [ ] 댓글 삭제
-  - [ ] 본인 댓글만 삭제 가능
-  - [ ] Clerk 인증 확인
+  - [x] 댓글 삭제
+  - [x] 본인 댓글만 삭제 가능
+  - [x] Clerk 인증 확인
 
-- [ ] 댓글 삭제 버튼 기능
+- [x] 댓글 삭제 버튼 기능
 
-  - [ ] CommentList에 삭제 버튼 추가
+  - [x] CommentList에 삭제 버튼 추가 (Trash2 아이콘, 호버 시 표시)
   - [ ] 삭제 확인 다이얼로그 (선택사항)
 
-- [ ] PostFeed 무한 스크롤
-  - [ ] Intersection Observer 사용
-  - [ ] 하단 도달 시 다음 10개 로드
-  - [ ] 로딩 상태 표시
-  - [ ] 더 이상 데이터 없을 때 처리
+- [x] PostFeed 무한 스크롤
+  - [x] Intersection Observer 사용
+  - [x] 하단 도달 시 다음 10개 로드
+  - [x] 로딩 상태 표시
+  - [x] 더 이상 데이터 없을 때 처리
 
 ## 4. 3단계: 프로필 페이지 & 팔로우 기능
 
-### 4-1. 프로필 페이지 - 기본 정보
+### 4-1. 프로필 페이지 - 기본 정보 (완료 ✅)
 
-- [ ] 프로필 페이지 동적 라우트 (`app/(main)/profile/[userId]/page.tsx`)
+- [x] 프로필 페이지 동적 라우트 (`app/(main)/profile/[userId]/page.tsx`)
 
-  - [ ] 본인 프로필: `/profile` 또는 `/profile/[userId]` (본인 ID)
-  - [ ] 다른 사람 프로필: `/profile/[userId]`
-  - [ ] Clerk 인증 확인
+  - [x] 본인 프로필: `/profile` 또는 `/profile/[userId]` (본인 ID)
+  - [x] 다른 사람 프로필: `/profile/[userId]`
+  - [x] Clerk 인증 확인 (선택적 - 로그인하지 않아도 프로필 조회 가능)
+  - [x] Clerk ID를 Supabase UUID로 자동 변환
 
-- [ ] ProfileHeader 컴포넌트 (`components/profile/ProfileHeader.tsx`)
+- [x] ProfileHeader 컴포넌트 (`components/profile/ProfileHeader.tsx`)
 
-  - [ ] 프로필 이미지: 150px (Desktop) / 90px (Mobile) 원형
-  - [ ] 사용자명 (Bold)
-  - [ ] 통계: 게시물 수, 팔로워 수, 팔로잉 수
-  - [ ] 본인 프로필: "프로필 편집" 버튼 (1차 제외, Clerk 설정 사용)
-  - [ ] 다른 사람 프로필: "팔로우" 또는 "팔로잉" 버튼
-  - [ ] Bio 표시 (fullname, bio)
+  - [x] 프로필 이미지: 150px (Desktop) / 90px (Mobile) 원형
+  - [x] 사용자명 (Bold)
+  - [x] 통계: 게시물 수, 팔로워 수, 팔로잉 수
+  - [x] 본인 프로필: "프로필 편집" 버튼 (1차 제외, Clerk 설정 사용)
+  - [x] 다른 사람 프로필: "팔로우" 또는 "팔로잉" 버튼 (4-3에서 구현 예정, UI만)
+  - [x] Bio 표시 (fullname, bio)
+  - [x] 반응형 레이아웃 (Desktop/Mobile)
 
-- [ ] 사용자 API - GET (`app/api/users/[userId]/route.ts`)
-  - [ ] 사용자 정보 조회
-  - [ ] 게시물 수, 팔로워 수, 팔로잉 수 집계
-  - [ ] 현재 사용자의 팔로우 여부 포함
+- [x] 사용자 API - GET (`app/api/users/[userId]/route.ts`)
+
+  - [x] 사용자 정보 조회
+  - [x] 게시물 수, 팔로워 수, 팔로잉 수 집계
+  - [x] 현재 사용자의 팔로우 여부 포함
+  - [x] Clerk에서 프로필 이미지 URL 가져오기
+
+- [x] 데이터베이스 스키마 업데이트
+
+  - [x] users 테이블에 `fullname`, `bio` 필드 추가 마이그레이션 생성
+  - [x] 마이그레이션 파일: `supabase/migrations/20251109130326_add_fullname_bio_to_users.sql`
+
+- [x] 타입 정의 업데이트
+
+  - [x] `User` 타입에 `fullname`, `bio` 필드 추가
+  - [x] `UserWithStats` 타입 정의 (통계 정보 포함)
+
+- [x] 사용자 동기화 API 업데이트
+  - [x] `sync-user` API에서 Clerk의 `fullName`을 `fullname` 필드에 저장
 
 ### 4-2. 프로필 페이지 - 게시물 그리드
 

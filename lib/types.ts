@@ -27,6 +27,10 @@ export interface User {
   clerk_id: string;
   /** 사용자 이름 */
   name: string;
+  /** 전체 이름 (Clerk의 fullName과 동기화) */
+  fullname?: string | null;
+  /** 프로필 소개글 */
+  bio?: string | null;
   /** 생성 일시 */
   created_at: Date | string;
 }
@@ -97,5 +101,46 @@ export interface Follow {
   following_id: string;
   /** 생성 일시 */
   created_at: Date | string;
+}
+
+/**
+ * 사용자 정보가 포함된 댓글 타입
+ * Comment + User 정보
+ */
+export interface CommentWithUser extends Comment {
+  /** 댓글 작성자 정보 */
+  user: User;
+}
+
+/**
+ * 상세 정보가 포함된 게시물 타입
+ * Post + User 정보 + 집계 정보
+ */
+export interface PostWithDetails extends Post {
+  /** 게시물 작성자 정보 */
+  user: User;
+  /** 좋아요 수 */
+  likes_count: number;
+  /** 댓글 수 */
+  comments_count: number;
+  /** 현재 사용자가 좋아요를 눌렀는지 여부 */
+  is_liked: boolean;
+  /** 댓글 미리보기 (최신 2개) */
+  comments_preview?: CommentWithUser[];
+}
+
+/**
+ * 통계 정보가 포함된 사용자 타입
+ * User + 통계 정보 (게시물 수, 팔로워 수, 팔로잉 수)
+ */
+export interface UserWithStats extends User {
+  /** 게시물 수 */
+  posts_count: number;
+  /** 팔로워 수 */
+  followers_count: number;
+  /** 팔로잉 수 */
+  following_count: number;
+  /** 프로필 이미지 URL (Clerk에서 가져옴) */
+  profile_image_url?: string | null;
 }
 

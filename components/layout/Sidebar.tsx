@@ -19,10 +19,12 @@
  * - lucide-react: 아이콘
  */
 
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { Home, Search, Plus, User } from "lucide-react";
 import Link from "next/link";
+import { CreatePostModal } from "@/components/post/CreatePostModal";
 
 interface MenuItem {
   icon: React.ComponentType<{ className?: string }>;
@@ -34,6 +36,7 @@ interface MenuItem {
 export function Sidebar() {
   const pathname = usePathname();
   const { userId } = useAuth();
+  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
 
   // 프로필 경로 생성 (현재는 Clerk ID 사용, 나중에 Supabase users 테이블과 연동)
   const profilePath = userId ? `/profile/${userId}` : "/profile";
@@ -52,10 +55,10 @@ export function Sidebar() {
     {
       icon: Plus,
       label: "만들기",
-      href: null, // 모달은 나중에 구현
+      href: null,
       onClick: () => {
-        console.log("만들기 버튼 클릭 - 모달은 3단계에서 구현 예정");
-        // TODO: CreatePostModal 열기 (3단계에서 구현)
+        console.log("➕ [Sidebar] 만들기 버튼 클릭 - 모달 열기");
+        setIsCreatePostModalOpen(true);
       },
     },
     {
@@ -135,6 +138,12 @@ export function Sidebar() {
           })}
         </nav>
       </div>
+
+      {/* 게시물 작성 모달 */}
+      <CreatePostModal
+        open={isCreatePostModalOpen}
+        onOpenChange={setIsCreatePostModalOpen}
+      />
     </aside>
   );
 }

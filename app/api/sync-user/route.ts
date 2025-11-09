@@ -28,6 +28,13 @@ export async function POST() {
     // Supabase에 사용자 정보 동기화
     const supabase = getServiceRoleClient();
 
+    console.log("[API] sync-user - Clerk 사용자 정보:", {
+      id: clerkUser.id,
+      fullName: clerkUser.fullName,
+      username: clerkUser.username,
+      email: clerkUser.emailAddresses[0]?.emailAddress,
+    });
+
     const { data, error } = await supabase
       .from("users")
       .upsert(
@@ -38,6 +45,9 @@ export async function POST() {
             clerkUser.username ||
             clerkUser.emailAddresses[0]?.emailAddress ||
             "Unknown",
+          fullname: clerkUser.fullName || null,
+          // bio는 Clerk에서 가져올 수 없으므로 NULL로 유지 (나중에 프로필 편집 기능에서 업데이트)
+          bio: null,
         },
         {
           onConflict: "clerk_id",

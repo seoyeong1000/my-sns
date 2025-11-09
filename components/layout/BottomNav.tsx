@@ -18,10 +18,12 @@
  * - lucide-react: 아이콘
  */
 
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { Home, Search, Plus, Heart, User } from "lucide-react";
 import Link from "next/link";
+import { CreatePostModal } from "@/components/post/CreatePostModal";
 
 interface NavItem {
   icon: React.ComponentType<{ className?: string }>;
@@ -33,6 +35,7 @@ interface NavItem {
 export function BottomNav() {
   const pathname = usePathname();
   const { userId } = useAuth();
+  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
 
   const profilePath = userId ? `/profile/${userId}` : "/profile";
 
@@ -51,8 +54,8 @@ export function BottomNav() {
       icon: Plus,
       href: null,
       onClick: () => {
-        console.log("만들기 버튼 클릭 - 모달은 3단계에서 구현 예정");
-        // TODO: CreatePostModal 열기 (3단계에서 구현)
+        console.log("➕ [BottomNav] 만들기 버튼 클릭 - 모달 열기");
+        setIsCreatePostModalOpen(true);
       },
       label: "만들기",
     },
@@ -125,6 +128,12 @@ export function BottomNav() {
           );
         })}
       </div>
+
+      {/* 게시물 작성 모달 */}
+      <CreatePostModal
+        open={isCreatePostModalOpen}
+        onOpenChange={setIsCreatePostModalOpen}
+      />
     </nav>
   );
 }
